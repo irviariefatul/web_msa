@@ -46,4 +46,7 @@ Route::resource('/allowances', AllowanceController::class);
 Route::resource('/qualifications', QualificationController::class);
 
 Route::resource('/perhitungan_gajis', PerhitunganGajiController::class);
+Route::post('/perhitungan-gajis', [PerhitunganGajiController::class, 'store'])->name('perhitungan-gaji.store');
+
+
 

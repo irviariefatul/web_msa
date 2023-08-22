@@ -54,9 +54,9 @@ class User extends Authenticatable
         return $this->hasMany(Qualification::class);
     }
 
-    public function perhitungan_gajis()
+    public function perhitunganGajis()
     {
-        return $this->hasMany(PerhitunganGaji::class, 'user_id');
+        return $this->hasMany(PerhitunganGaji::class);
     }
 
     public function isAdmin()

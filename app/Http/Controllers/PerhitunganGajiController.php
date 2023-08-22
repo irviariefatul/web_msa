@@ -6,9 +6,9 @@ use App\Models\Qualification;
 use App\Models\Allowance;
 use App\Models\PerhitunganGaji;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use App\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+
 
 class PerhitunganGajiController extends Controller
 {
@@ -24,7 +24,7 @@ class PerhitunganGajiController extends Controller
         if ($user->isAdmin()) {
             $perhitungan_gajis = PerhitunganGaji::all();
         } else {
-            $perhitungan_gajis = $user->perhitunganGajis;
+            $perhitungan_gajis = $user->perhitungan_gajis;
         }
 
         return view('perhitungan-gajis.index', ['perhitungan_gajis' => $perhitungan_gajis,]);
@@ -50,29 +50,40 @@ class PerhitunganGajiController extends Controller
      */
     public function store(Request $request)
     {
-        $qualificationId = $request->qualification_id;
-        $allowanceIds = $request->allowances;
+        $user = Auth::user();
 
-        $qualification = Qualification::findOrFail($qualificationId);
-        $allowances = Allowance::whereIn('id', $allowanceIds)->get();
+    $qualificationId = $request->Qualification;
 
-        $totalAllowance = $allowances->sum('amount');
-        $totalGaji = $qualification->salary->gaji;
+    $qualification = Qualification::findOrFail($qualificationId);
+    $salary = $qualification->salary;
 
-        // Hitung total_gaji dan total_allowance
-        $totalSalary = $totalGaji * $totalAllowance;
+    $allowanceIds = array_column($request->input('Allowance'), 'id'); // Ambil array of id dari Allowances
+    $allowances = Allowance::whereIn('id', $allowanceIds)->get();
 
-        // Simpan data ke tabel total_salary
-        $totalSalaryEntry = new TotalSalary([
-            'total_allowance' => $totalAllowance,
-            'total_gaji' => $totalGaji,
-        ]);
+    $totalAllowance = $allowances->sum('amount');
+    $totalGaji = $salary->gaji;
 
-        $qualification->allowances()->save($totalSalaryEntry, ['allowance_id' => $allowanceIds]);
+    $totalSalary = $totalGaji + $totalAllowance;
 
-        return redirect()->route('perhitungan-gajis.index')->with('success', 'Total salary calculated and saved.');
+    $perhitunganGaji = PerhitunganGaji::create([
+        'total_allowance' => $totalAllowance,
+        'total_gaji' => $totalSalary,
+    ]);
+
+    $qualification->perhitunganGajis()->attach($perhitunganGaji->id, ['total_allowance' => $totalAllowance]);
+
+    foreach ($allowances as $allowance) {
+        // Menggunakan attach untuk menyimpan data pada tabel pivot
+        $perhitunganGaji->allowances()->attach($allowance->id, ['total_allowance' => $allowance->amount]);
     }
-        
+
+    // Simpan relasi user
+    $perhitunganGaji->user()->associate($user);
+    $perhitunganGaji->save();
+
+    return redirect()->route('perhitungan-gajis.index')->with('success', 'Total salary calculated and saved.');
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -117,4 +128,5 @@ class PerhitunganGajiController extends Controller
     {
         //
     }
+    
 }
