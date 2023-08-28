@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Allowance;
+use App\Models\Operasional;
 use Illuminate\Http\Request;
 
-class AllowanceController extends Controller
+class OperasionalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AllowanceController extends Controller
      */
     public function index()
     {
-        $allowance = Allowance::all();
-        return view('allowances.index', ['allowance' => $allowance]);
+        $operasionals = Operasional::all();
+        return view('operasionals.index', ['operasionals' => $operasionals]);
     }
 
     /**
@@ -25,7 +25,7 @@ class AllowanceController extends Controller
      */
     public function create()
     {
-        return view('allowances.create');
+        return view('operasionals.create');
     }
 
     /**
@@ -38,24 +38,24 @@ class AllowanceController extends Controller
     {
         // Validasi input sesuai kebutuhan 
         $validatedData = $request->validate([
-            'nama_tunjangan' => 'required|string|max:255',
+            'nama_operasional' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0.01',
         ]);
 
         // Buat objek Permintaan dengan data yang divalidasi
-        $allowance = new Allowance([
-            'nama_tunjangan' => $validatedData['nama_tunjangan'],
+        $operationals = new Operasional([
+            'nama_operasional' => $validatedData['nama_operasional'],
             'deskripsi' => $validatedData['deskripsi'],
             'harga' => $validatedData['harga'],
         // Atur status default di sini
         ]);
 
         // Simpan objek Permintaan ke dalam database
-        $allowance->save();
+        $operationals->save();
 
         // Redirect atau lakukan apa yang perlu setelah berhasil menyimpan
-        return redirect()->route('allowances.index')->with('status', 'Allowance added successfully.');
+        return redirect()->route('operasionals.index')->with('status', 'Operational added successfully.');
     }
 
     /**
@@ -66,8 +66,8 @@ class AllowanceController extends Controller
      */
     public function show($id)
     {
-        $allowance = Allowance::find($id);
-    return view('allowances.show', compact('allowance'));
+        $operationals = Operasional::findOrFail($id);
+        return view('operasionals.show', compact('operationals'));
     }
 
     /**
@@ -78,8 +78,8 @@ class AllowanceController extends Controller
      */
     public function edit($id)
     {
-        $allowance = Allowance::findOrFail($id);
-    return view('allowances.edit', compact('allowance'));
+        $operationals = Operasional::findOrFail($id);
+        return view('operasionals.edit', compact('operationals'));
     }
 
     /**
@@ -91,25 +91,19 @@ class AllowanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validasi input sesuai kebutuhan
-    $validatedData = $request->validate([
-        'nama_tunjangan' => 'required|string|max:255',
-        'deskripsi' => 'required|string|max:255',
-        'harga' => 'required|numeric|min:0.01',
-    ]);
-
-    // Temukan data yang ingin diupdate
-    $allowance = Allowance::findOrFail($id);
-
-    // Update data dengan data yang divalidasi
-    $allowance->update([
-        'nama_tunjangan' => $validatedData['nama_tunjangan'],
-        'deskripsi' => $validatedData['deskripsi'],
-        'harga' => $validatedData['harga'],
-    ]);
-
-    // Redirect atau lakukan apa yang perlu setelah berhasil mengupdate
-    return redirect()->route('allowances.index')->with('status', 'Allowance updated successfully.');
+        $validatedData = $request->validate([
+            'nama_operasional' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+            'harga' => 'required|numeric|min:0.01',
+        ]);
+    
+        $operationals = Operasional::findOrFail($id);
+        $operationals->nama_operasional = $validatedData['nama_operasional'];
+        $operationals->deskripsi = $validatedData['deskripsi'];
+        $operationals->harga = $validatedData['harga'];
+        $operationals->save();
+    
+        return redirect()->route('operasionals.index')->with('status', 'Operational updated successfully.');
     }
 
     /**
@@ -120,11 +114,13 @@ class AllowanceController extends Controller
      */
     public function destroy($id)
     {
-        $allowance = Allowance::find($id);
-        $allowance->delete();
-        return redirect()->route('allowances.index');
+        $operationals = Operasional::findOrFail($id);
+        $operationals->delete();
+
+        return redirect()->route('operasionals.index')->with('status', 'Investment deleted successfully.');
     }
+
     public function __construct() {
         $this->middleware('auth');
-    }
+        }
 }

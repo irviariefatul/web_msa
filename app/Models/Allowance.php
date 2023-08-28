@@ -12,8 +12,13 @@ class Allowance extends Model
     'deskripsi',
     'harga',];
 
-    public function qualification()
+    public function qualifications()
     {
-        return $this->belongsToMany(Qualification::class);
+        return $this->belongsToMany(Qualification::class, 'perhitungan_gajis')->withPivot('total_allowance');
+    }
+
+    public function perhitunganGajis()
+    {
+        return $this->belongsToMany(PerhitunganGaji::class, 'allowance_perhitungan_gajis');
     }
 }

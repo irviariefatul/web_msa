@@ -16,9 +16,12 @@
     <link rel="shortcut icon" href="{{ asset('dashboard/images/favicon.png') }}" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Search-->
+    <link href="{{ asset('dashboard/css/vertical-layout-light/select2.min.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Scripts Tabel -->
     <link href="{{ asset('quixlab/./plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('quixlab/css/style.css') }}" rel="stylesheet">
@@ -50,8 +53,8 @@
                         @endif
                     @else
                         <li class="nav-item nav-profile dropdown">
-                            <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown"
-                                id="profileDropdown">
+                            <a class="nav-link dropdown-toggle pl-0 pr-0" href="#" data-toggle="dropdown"
+                                id="profileDropdown" aria-expanded="false">
                                 <i class="typcn typcn-user-outline text-white"></i>
                                 <span class="nav-profile-name">{{ Auth::user()->name }}</span>
                             </a>
@@ -71,6 +74,21 @@
                                 </form>
                             </div>
                         </li>
+                        <script>
+                            const dropdownToggle = document.querySelector('.nav-link.dropdown-toggle');
+                            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+                            dropdownToggle.addEventListener('click', function() {
+                                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                                this.setAttribute('aria-expanded', !isExpanded);
+
+                                if (!isExpanded) {
+                                    dropdownMenu.classList.add('show');
+                                } else {
+                                    dropdownMenu.classList.remove('show');
+                                }
+                            });
+                        </script>
                     @endguest
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
@@ -183,13 +201,13 @@
                             <div class="collapse" id="charts">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/investment">Investment Components</a></li>
+                                            href="http://127.0.0.1:8000/investments">Investment Components</a></li>
                                 </ul>
                             </div>
                             <div class="collapse" id="charts">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/operational">Operational Components</a></li>
+                                            href="http://127.0.0.1:8000/operasionals">Operational Components</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -229,48 +247,32 @@
     <script src="{{ asset('dashboard/js/settings.js') }}"></script>
     <script src="{{ asset('dashboard/js/todolist.js') }}"></script>
     <!-- endinject -->
+
+    <!-- Scripts Search Dropdown -->
+    <script src="{{ asset('dashboard/vendors/js/vendor.bundle.base.js') }}"></script>
+    <!-- Other scripts ... -->
+
+    <!-- Select2 script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#Salary').select2({
+                placeholder: "Search...",
+                width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
+                allowClear: true // Aktifkan ini jika Anda ingin memungkinkan penghapusan pilihan
+            });
+            $('#Qualification').select2({
+                placeholder: "Search...",
+                width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
+                allowClear: true // Aktifkan ini jika Anda ingin memungkinkan penghapusan pilihan
+            });
+        });
+    </script>
+
     <!-- Tabel -->
     <script src="{{ asset('quixlab/./plugins/tables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('quixlab/./plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('quixlab/./plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
-    <!-- Scripts Search Dropdown -->
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var searchTerm = $(this).val().toLowerCase();
-                $('#salaryDropdown option').each(function() {
-                    var text = $(this).text().toLowerCase();
-                    var value = $(this).val();
-
-                    if (text.includes(searchTerm)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-
-                    // Jika salah satu opsi terpilih sesuai dengan pencarian, pilih opsi tersebut
-                    if (text.includes(searchTerm) && value == $('#salaryDropdown').val()) {
-                        $('#salaryDropdown').val(value);
-                    }
-                });
-                $('#qualificationDropdown option').each(function() {
-                    var text = $(this).text().toLowerCase();
-                    var value = $(this).val();
-
-                    if (text.includes(searchTerm)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-
-                    // Jika salah satu opsi terpilih sesuai dengan pencarian, pilih opsi tersebut
-                    if (text.includes(searchTerm) && value == $('#qualificationDropdown').val()) {
-                        $('#qualificationDropdown').val(value);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

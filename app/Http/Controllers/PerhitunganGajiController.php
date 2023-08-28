@@ -24,7 +24,7 @@ class PerhitunganGajiController extends Controller
         if ($user->isAdmin()) {
             $perhitungan_gajis = PerhitunganGaji::all();
         } else {
-            $perhitungan_gajis = $user->perhitungan_gajis;
+            $perhitungan_gajis = $user->perhitunganGajis;
         }
 
         return view('perhitungan-gajis.index', ['perhitungan_gajis' => $perhitungan_gajis,]);
@@ -51,38 +51,30 @@ class PerhitunganGajiController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $qualificationId = $request->Qualification;
+        $qualification = Qualification::findOrFail($qualificationId);
+        $allowanceInputs = $request->input('Allowance');
+        $allowanceIds = array_column($allowanceInputs, 'id');
+        $allowances = Allowance::whereIn('id', $allowanceIds)->get();
 
-    $qualificationId = $request->Qualification;
+        $totalAllowance = $allowances->sum('harga');
+        $totalGaji = $qualification->salaries->gaji;
+        $totalSalary = $totalGaji + $totalAllowance;
 
-    $qualification = Qualification::findOrFail($qualificationId);
-    $salary = $qualification->salary;
+        $perhitunganGaji = PerhitunganGaji::create([
+            'total_allowance' => $totalAllowance,
+            'total_gaji' => $totalSalary,
+            'user_id' => $user->id,
+            'qualification_id' => $qualificationId,
+        ]);
 
-    $allowanceIds = array_column($request->input('Allowance'), 'id'); // Ambil array of id dari Allowances
-    $allowances = Allowance::whereIn('id', $allowanceIds)->get();
+        foreach ($allowances as $allowance) {
+            $perhitunganGaji->allowances()->attach($allowance->id, ['allowance_id' => $allowance->id]);
+        }
 
-    $totalAllowance = $allowances->sum('amount');
-    $totalGaji = $salary->gaji;
-
-    $totalSalary = $totalGaji + $totalAllowance;
-
-    $perhitunganGaji = PerhitunganGaji::create([
-        'total_allowance' => $totalAllowance,
-        'total_gaji' => $totalSalary,
-    ]);
-
-    $qualification->perhitunganGajis()->attach($perhitunganGaji->id, ['total_allowance' => $totalAllowance]);
-
-    foreach ($allowances as $allowance) {
-        // Menggunakan attach untuk menyimpan data pada tabel pivot
-        $perhitunganGaji->allowances()->attach($allowance->id, ['total_allowance' => $allowance->amount]);
+        return redirect()->route('perhitungan_gajis.index')->with('success', 'Total salary calculated and saved.');
     }
 
-    // Simpan relasi user
-    $perhitunganGaji->user()->associate($user);
-    $perhitunganGaji->save();
-
-    return redirect()->route('perhitungan-gajis.index')->with('success', 'Total salary calculated and saved.');
-    }
     
     /**
      * Display the specified resource.
@@ -92,7 +84,10 @@ class PerhitunganGajiController extends Controller
      */
     public function show($id)
     {
-        //
+        $perhitunganGaji = PerhitunganGaji::findOrFail($id); 
+        $allowances = Allowance::all();
+        $qualifications = Qualification::all();
+        return view('perhitungan-gajis.show', compact('perhitunganGaji', 'allowances', 'qualifications'));
     }
 
     /**
@@ -103,7 +98,10 @@ class PerhitunganGajiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $perhitunganGaji = PerhitunganGaji::findOrFail($id); 
+        $allowances = Allowance::all();
+        $qualifications = Qualification::all();
+        return view('perhitungan-gajis.edit', compact('perhitunganGaji', 'allowances', 'qualifications'));
     }
 
     /**
@@ -115,7 +113,27 @@ class PerhitunganGajiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $qualificationId = $request->Qualification;
+        $qualification = Qualification::findOrFail($qualificationId);
+        $allowanceInputs = $request->input('Allowance');
+        $allowanceIds = array_column($allowanceInputs, 'id');
+        $allowances = Allowance::whereIn('id', $allowanceIds)->get();
+
+        $totalAllowance = $allowances->sum('harga');
+        $totalGaji = $qualification->salaries->gaji;
+        $totalSalary = $totalGaji + $totalAllowance;
+
+        $perhitunganGaji = PerhitunganGaji::findOrFail($id); // Menggunakan findOrFail untuk mencari data yang akan diupdate
+        $perhitunganGaji->total_allowance = $totalAllowance;
+        $perhitunganGaji->total_gaji = $totalSalary;
+        $perhitunganGaji->user_id = $user->id;
+        $perhitunganGaji->qualification_id = $qualificationId;
+        $perhitunganGaji->save();
+
+        $perhitunganGaji->allowances()->sync($allowanceIds); // Menggunakan sync untuk mengelola hubungan many-to-many
+
+        return redirect()->route('perhitungan_gajis.index')->with('success', 'Total salary recalculated and updated.');
     }
 
     /**
@@ -126,7 +144,26 @@ class PerhitunganGajiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $perhitunganGaji = PerhitunganGaji::findOrFail($id);
+
+    // Pastikan hanya admin atau pemilik yang dapat menghapus
+    if (!Auth::user()->isAdmin() && $perhitunganGaji->user_id !== Auth::user()->id) {
+        return redirect()->route('perhitungan_gajis.index')->with('error', 'You are not authorized to delete this record.');
     }
+
+    // Hapus relasi allowances sebelum menghapus data perhitungan gaji
+    $perhitunganGaji->allowances()->detach();
+
+    // Hapus data perhitungan gaji
+    $perhitunganGaji->delete();
+
+    return redirect()->route('perhitungan_gajis.index')->with('success', 'Calculation record deleted successfully.');
+    }
+
+    public function __construct() {
+        $this->middleware('auth');
+        }
     
 }
+
+

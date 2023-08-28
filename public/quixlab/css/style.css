@@ -1975,7 +1975,7 @@ pre code {
     border: 0;
 }
 
-.form-control {
+.form-controls {
     display: block;
     width: 100%;
     height: calc(2.0625rem + 2px);
@@ -1990,7 +1990,7 @@ pre code {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media screen and (prefers-reduced-motion: reduce) {
-    .form-control {
+    .form-controls {
         transition: none;
     }
 }
@@ -2087,7 +2087,7 @@ select.form-control[multiple] {
     height: auto;
 }
 
-textarea.form-control {
+textarea.form-controls {
     height: auto;
 }
 
@@ -2400,7 +2400,7 @@ textarea.form-control {
         align-items: center;
         margin-bottom: 0;
     }
-    .form-inline .form-control {
+    .form-inline .form-controls {
         display: inline-block;
         width: auto;
         vertical-align: middle;
@@ -3441,9 +3441,9 @@ input[type="button"].btn-block {
     width: 1%;
     margin-bottom: 0;
 }
-.input-group > .form-control + .form-control,
-.input-group > .form-control + .custom-select,
-.input-group > .form-control + .custom-file,
+.input-group > .form-controls + .form-control,
+.input-group > .form-controls + .custom-select,
+.input-group > .form-controls + .custom-file,
 .input-group > .custom-select + .form-control,
 .input-group > .custom-select + .custom-select,
 .input-group > .custom-select + .custom-file,
@@ -10465,7 +10465,7 @@ sub {
 .header-left .drop-down form {
     height: 100%;
 }
-.header-left .drop-down input.form-control {
+.header-left .drop-down input.form-controls {
     height: 100%;
     border: none;
 }
@@ -13929,7 +13929,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     color: #505f76;
     font-size: 15px;
 }
-.login-input .form-group .form-control {
+.login-input .form-group .form-controls {
     background: transparent;
     border: 0;
     border-radius: 0;
@@ -14347,7 +14347,7 @@ Input Style
     margin-bottom: 20px;
 }
 
-.form-control {
+.form-controls {
     border-radius: 0;
     box-shadow: none;
     height: 45px;
@@ -14375,7 +14375,7 @@ Input Style
 /*****************************************
   Input Size
 ******************************************/
-.form-control {
+.form-controls {
     min-height: 40px;
 }
 
@@ -14489,7 +14489,7 @@ Input Style
 .bootstrap-touchspin .input-group-btn,
 .bootstrap-touchspin .input-group-prepend,
 .bootstrap-touchspin .input-group-append,
-.bootstrap-touchspin .form-control {
+.bootstrap-touchspin .form-controls {
     margin: 10px 0px 0px;
 }
 
@@ -14654,7 +14654,7 @@ input[type="checkbox"]:checked:after {
         padding: 0;
     }
 }
-.wizard .content > .body .form-control {
+.wizard .content > .body .form-controls {
     background-color: #f7fafc;
     border: 1px solid #eeeeee;
 }
@@ -16927,7 +16927,7 @@ table.dataTable thead .sorting::after {
     margin-right: auto;
     margin-left: auto;
 }
-.comming-soon__form .input-group .form-control {
+.comming-soon__form .input-group .form-controls {
     background: transparent;
 }
 .comming-soon__form .input-group-append .input-group-text {
@@ -21155,7 +21155,7 @@ html[dir="rtl"]
     background-color: #162336;
 }
 
-[data-theme-version="dark"] .wallet-card .wallet-address .form-control {
+[data-theme-version="dark"] .wallet-card .wallet-address .form-controls {
     border-color: rgba(120, 130, 140, 0.13);
 }
 
@@ -21368,7 +21368,7 @@ html[dir="rtl"]
     color: #fff;
 }
 
-[data-theme-version="dark"] .input-group.input-with-img .form-control {
+[data-theme-version="dark"] .input-group.input-with-img .form-controls {
     background-color: #162336;
     border-color: rgba(120, 130, 140, 0.13);
 }

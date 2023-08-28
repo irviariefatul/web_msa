@@ -15,9 +15,9 @@ class Qualification extends Model
     'deskripsi_layanan',
     'jenjang_pendidikan',];
 
-    public function salary()
+    public function salaries()
     {
-        return $this->belongsTo(Salary::class, 'salaries_id'); // Ubah sesuai dengan nama kolom foreign key pada tabel qualifications
+        return $this->belongsTo(Salary::class);
     }
 
     public function user()
@@ -25,8 +25,13 @@ class Qualification extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function allowance()
+    public function perhitunganGajis()
     {
-        return $this->belongsToMany(Allowance::class)->withPivot('total_allowance');
+        return $this->hasMany(PerhitunganGaji::class);
+    }
+
+    public function allowances()
+    {
+        return $this->belongsToMany(Allowance::class, 'perhitungan_gajis')->withPivot('total_allowance');
     }
 }

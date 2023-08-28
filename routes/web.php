@@ -9,6 +9,8 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\AllowanceController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\PerhitunganGajiController;
+use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\OperasionalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,8 @@ Route::resource('/allowances', AllowanceController::class);
 Route::resource('/qualifications', QualificationController::class);
 
 Route::resource('/perhitungan_gajis', PerhitunganGajiController::class);
-Route::post('/perhitungan-gajis', [PerhitunganGajiController::class, 'store'])->name('perhitungan-gaji.store');
 
+Route::resource('/investments', InvestmentController::class);
 
+Route::resource('/operasionals', OperasionalController::class);
 

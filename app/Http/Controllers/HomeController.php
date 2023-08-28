@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Permintaan;
+use App\Models\Qualification;
+use App\Models\PerhitunganGaji;
 
 class HomeController extends Controller
 {
@@ -29,11 +31,11 @@ class HomeController extends Controller
         $totalUsers = User::count();
         $totalPermintaans = Permintaan::count();
         $totalPendingPermintaans = Permintaan::where('status', 'pending')->count();
-        //$totalKematian = Kematian::count();
-        //$totalKK = KartuKeluarga::count();
+        $totalQualifications = Qualification::count();
+        $totalSalaryCalculations = PerhitunganGaji::count();
 
         return view('home', compact(
-            'totalUsers','totalPermintaans', 'totalPendingPermintaans',
+            'totalUsers','totalPermintaans', 'totalPendingPermintaans', 'totalQualifications', 'totalSalaryCalculations'
         ));
 
         $user = Auth::user();

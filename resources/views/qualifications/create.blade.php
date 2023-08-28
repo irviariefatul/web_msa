@@ -24,12 +24,9 @@
                             placeholder="Education Level" required>
                     </div>
                     <div class="form-group">
-                        <label for="lavel">Level<span class="text-danger">*</span></label>
+                        <label for="level">Level<span class="text-danger">*</span></label>
                         <div class="input-group-prepend">
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button"
-                                id="searchInput" placeholder="Search...">
-                            <select class="btn btn-sm btn-outline-primary dropdown-toggle" aria-haspopup="true"
-                                aria-expanded="false" name="Salary" required="required" id="salaryDropdown">
+                            <select class="form-control select2" name="Salary" required="required" id="Salary">
                                 <option value="">Select Options</option>
                                 @foreach ($salaries as $s)
                                     <option value="{{ $s->id }}">{{ $s->nama_posisi }}</option>

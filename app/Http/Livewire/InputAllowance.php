@@ -29,6 +29,8 @@ class InputAllowance extends Component
 
     public function render()
     {
-        return view('livewire.input-allowance', ['allowances' => $this->allowances]);
+        return view('livewire.input-allowance', ['allowances' => $this->allowances])
+            ->extends('layouts.app3')
+            ->section('content');
     }
 }

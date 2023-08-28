@@ -54,11 +54,8 @@ class QualificationController extends Controller
         $qualification->layanan = $request->layanan;
         $qualification->deskripsi_layanan = $request->deskripsi_layanan;
         $qualification->jenjang_pendidikan = $request->jenjang_pendidikan;
+        $qualification->user_id = $user->id;
 
-        if (!$user->isAdmin()) {
-            $qualification->user_id = $user->id;
-        }
-        
         $salaries = new Salary;
         $salaries->id = $request->Salary;
 

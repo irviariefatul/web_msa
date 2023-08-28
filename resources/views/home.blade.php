@@ -34,9 +34,9 @@
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="card gradient-3">
                                         <div class="card-body">
-                                            <h3 class="card-title text-white">Kelahiran</h3>
+                                            <h3 class="card-title text-white">Qualifications</h3>
                                             <div class="d-inline-block">
-                                                <h2 class="text-white"></h2>
+                                                <h2 class="text-white">{{ $totalQualifications }}</h2>
                                             </div>
                                             <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
                                         </div>
@@ -45,9 +45,9 @@
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="card gradient-4">
                                         <div class="card-body">
-                                            <h3 class="card-title text-white">Kematian</h3>
+                                            <h3 class="card-title text-white">Salary Calculations</h3>
                                             <div class="d-inline-block">
-                                                <h2 class="text-white"></h2>
+                                                <h2 class="text-white">{{ $totalSalaryCalculations }}</h2>
                                             </div>
                                             <span class="float-right display-5 opacity-5"><i class="fa fa-star"></i></span>
                                         </div>
