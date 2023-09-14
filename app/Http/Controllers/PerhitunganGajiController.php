@@ -38,7 +38,7 @@ class PerhitunganGajiController extends Controller
     public function create()
     {
         $allowances = Allowance::all();
-        $qualifications = Qualification::all();
+        $qualifications = Qualification::with('salaries')->get();
         return view('perhitungan-gajis.create', compact('allowances', 'qualifications'));
     }
 

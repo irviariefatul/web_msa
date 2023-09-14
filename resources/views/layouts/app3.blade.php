@@ -113,14 +113,14 @@
                             <span class="menu-title">Dashboard</span></span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        @can('manage-admins')
+                    @can('manage-admins')
+                        <li class="nav-item">
                             <a class="nav-link" href="http://127.0.0.1:8000/users">
                                 <i class="typcn typcn-user-add-outline menu-icon"></i>
                                 <span class="menu-title">Users</span></span>
                             </a>
-                        @endcan
-                    </li>
+                        </li>
+                    @endcan
                     @can('manage-admins')
                         <li class="nav-item">
                             <a class="nav-link" href="http://127.0.0.1:8000/permintaans">
@@ -146,20 +146,16 @@
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/perhitungan_gajis">Salary Calculations</a></li>
-                                </ul>
-                            </div>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
                                             href="http://127.0.0.1:8000/qualifications">Qualifications</a></li>
+                                    <li class="nav-item"> <a class="nav-link"
+                                            href="http://127.0.0.1:8000/perhitungan_gajis">Salary Calculations</a></li>
                                 </ul>
                             </div>
                         @endcan
                         @can('manage-admins')
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                                aria-controls="ui-basic">
+                                aria-controls="Positions">
                                 <i class="typcn typcn-briefcase menu-icon"></i>
                                 <span class="menu-title">Positions</span>
                                 <i class="menu-arrow"></i>
@@ -167,25 +163,13 @@
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/perhitungan_gajis">Salary Calculations</a></li>
-                                </ul>
-                            </div>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/qualifications">Qualifications</a></li>
-                                </ul>
-                            </div>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
+                                            href="http://127.0.0.1:8000/allowances">Allowances</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                             href="http://127.0.0.1:8000/salaries">Salaries</a></li>
-                                </ul>
-                            </div>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="http://127.0.0.1:8000/allowances">Allowances</a></li>
+                                            href="http://127.0.0.1:8000/qualifications">Qualifications</a></li>
+                                    <li class="nav-item"> <a class="nav-link"
+                                            href="http://127.0.0.1:8000/perhitungan_gajis">Salary Calculations</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -193,7 +177,7 @@
                     @can('manage-admins')
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false"
-                                aria-controls="Positions">
+                                aria-controls="Components">
                                 <i class="typcn typcn-spanner-outline menu-icon"></i>
                                 <span class="menu-title">Components</span>
                                 <i class="menu-arrow"></i>
@@ -202,16 +186,34 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
                                             href="http://127.0.0.1:8000/investments">Investment Components</a></li>
-                                </ul>
-                            </div>
-                            <div class="collapse" id="charts">
-                                <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
                                             href="http://127.0.0.1:8000/operasionals">Operational Components</a></li>
                                 </ul>
                             </div>
                         </li>
                     @endcan
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false"
+                            aria-controls="icons">
+                            <i class="typcn typcn-calculator menu-icon"></i>
+                            <span class="menu-title">Calculate Service Fees</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="icons">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="http://127.0.0.1:8000/service_fees">Human Resources Costs</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="http://127.0.0.1:8000/invest_fees">Investment Component Costs</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="http://127.0.0.1:8000/operational_fees">Operational Component Costs</a>
+                                </li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="http://127.0.0.1:8000/application_prices">Applicatioan Prices</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </nav>
             <!-- partial -->
@@ -259,12 +261,22 @@
             $('#Salary').select2({
                 placeholder: "Search...",
                 width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
-                allowClear: true // Aktifkan ini jika Anda ingin memungkinkan penghapusan pilihan
             });
             $('#Qualification').select2({
                 placeholder: "Search...",
                 width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
-                allowClear: true // Aktifkan ini jika Anda ingin memungkinkan penghapusan pilihan
+            });
+            $('#ServiceFee').select2({
+                placeholder: "Search...",
+                width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
+            });
+            $('#InvestFee').select2({
+                placeholder: "Search...",
+                width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
+            });
+            $('#OperationalFee').select2({
+                placeholder: "Search...",
+                width: "100%", // Atur lebar dropdown sesuai kebutuhan Anda
             });
         });
     </script>

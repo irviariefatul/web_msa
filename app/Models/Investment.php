@@ -11,4 +11,9 @@ class Investment extends Model
 
     protected $table = "investments";
     protected $fillable = ['nama_invest','deskripsi','harga',];
+
+    public function investFees()
+    {
+        return $this->belongsToMany(InvestFee::class, 'investments_invest_fees')->withPivot('investment_id','estimasi','pemeliharaan_ivts', 'biaya_pemeliharaan_ivts');
+    }
 }

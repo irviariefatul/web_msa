@@ -11,6 +11,10 @@ use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\PerhitunganGajiController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\OperasionalController;
+use App\Http\Controllers\ServiceFeeController;
+use App\Http\Controllers\InvestFeeController;
+use App\Http\Controllers\OperationalFeeController;
+use App\Http\Controllers\ApplicationPriceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +57,10 @@ Route::resource('/investments', InvestmentController::class);
 
 Route::resource('/operasionals', OperasionalController::class);
 
+Route::resource('/service_fees', ServiceFeeController::class);
+
+Route::resource('/invest_fees', InvestFeeController::class);
+
+Route::resource('/operational_fees', OperationalFeeController::class);
+
+Route::resource('/application_prices', ApplicationPriceController::class);

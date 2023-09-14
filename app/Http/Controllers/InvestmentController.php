@@ -40,7 +40,7 @@ class InvestmentController extends Controller
         $validatedData = $request->validate([
             'nama_invest' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0.01',
+            'harga' => 'required|numeric',
         ]);
 
         // Buat objek Permintaan dengan data yang divalidasi
@@ -55,7 +55,7 @@ class InvestmentController extends Controller
         $investments->save();
 
         // Redirect atau lakukan apa yang perlu setelah berhasil menyimpan
-        return redirect()->route('investments.index')->with('status', 'Investment added successfully.');
+        return redirect()->route('investments.index')->with('status', 'Investment Component added successfully.');
     }
 
     /**
@@ -94,7 +94,7 @@ class InvestmentController extends Controller
         $validatedData = $request->validate([
             'nama_invest' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0.01',
+            'harga' => 'required|numeric',
         ]);
     
         $investment = Investment::findOrFail($id);
@@ -103,7 +103,7 @@ class InvestmentController extends Controller
         $investment->harga = $validatedData['harga'];
         $investment->save();
     
-        return redirect()->route('investments.index')->with('status', 'Investment updated successfully.');
+        return redirect()->route('investments.index')->with('status', 'Investment Component updated successfully.');
     }
 
     /**
@@ -117,7 +117,7 @@ class InvestmentController extends Controller
         $investment = Investment::findOrFail($id);
         $investment->delete();
 
-        return redirect()->route('investments.index')->with('status', 'Investment deleted successfully.');
+        return redirect()->route('investments.index')->with('status', 'Investment Component deleted successfully.');
     }
 
     public function __construct() {

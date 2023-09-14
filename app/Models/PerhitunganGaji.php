@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PerhitunganGaji extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','qualification_id', 'allowance_id','total_allowance','total_gaji',];
+    protected $fillable = ['user_id','qualification_id','total_allowance','total_gaji',];
 
     public function user()
     {
@@ -25,5 +25,9 @@ class PerhitunganGaji extends Model
         return $this->belongsToMany(Allowance::class, 'allowance_perhitungan_gajis');
     }
 
+    public function serviceFees()
+    {
+        return $this->belongsToMany(ServiceFee::class, 'perhitungan_gajis_service_fees')->withPivot('perhitungan_gaji_id','estimasi');
+    }
     
 }

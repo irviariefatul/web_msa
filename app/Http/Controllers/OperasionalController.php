@@ -40,7 +40,7 @@ class OperasionalController extends Controller
         $validatedData = $request->validate([
             'nama_operasional' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0.01',
+            'harga' => 'required|numeric',
         ]);
 
         // Buat objek Permintaan dengan data yang divalidasi
@@ -94,7 +94,7 @@ class OperasionalController extends Controller
         $validatedData = $request->validate([
             'nama_operasional' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0.01',
+            'harga' => 'required|numeric',
         ]);
     
         $operationals = Operasional::findOrFail($id);

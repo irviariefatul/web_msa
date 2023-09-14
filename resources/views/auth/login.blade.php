@@ -6,6 +6,17 @@
             <div class="w-100">
                 <h3 class="mb-4">Sign In</h3>
             </div>
+            <div class="w-100">
+                <p class="social-media d-flex justify-content-end align-items-center">
+                    <a href="mailto:cs@gmail.com?subject=Permintaan%20Akun%20Baru"
+                        class="social-icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-envelope"></span>
+                    </a>
+                    <a>
+                        <span class="email-text">cs@gmail.com</span>
+                    </a>
+                </p>
+            </div>
         </div>
         <form method="POST" action="{{ route('login') }}" class="signin-form">
             @csrf
@@ -39,4 +50,5 @@
                 <input type="submit" class="form-control btn btn-primary submit px-3" value="Sign In">
             </div>
         </form>
-    @endsection
+    </div>
+@endsection

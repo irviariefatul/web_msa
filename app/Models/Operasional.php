@@ -11,4 +11,9 @@ class Operasional extends Model
 
     protected $table = "operasionals";
     protected $fillable = ['nama_operasional','deskripsi','harga',];
+
+    public function operationalFees()
+    {
+        return $this->belongsToMany(OperationalFee::class,'operasionals_operational_fees')->withPivot('biaya_pemeliharaan_opts', 'estimasi', 'pemeliharaan_opts');
+    }
 }

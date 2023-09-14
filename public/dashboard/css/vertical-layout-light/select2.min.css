@@ -146,7 +146,7 @@
 .select2-container--default .select2-selection--single {
     display: block;
     width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
+    height: calc(1.5em + 0.75rem + 14px);
     padding: 0.875rem 1.375rem;
     font-size: 0.875rem;
     font-weight: 400;

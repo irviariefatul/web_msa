@@ -41,11 +41,12 @@
                         </div>
                     </div>
                     @livewire('input-allowance-edit', ['existingAllowances' => $perhitunganGaji->allowances])
-                    @livewireScripts
                     <button type="submit" name="edit" class="btn btn-primary align-self-center">Update</button>
                     <a href="{{ url()->previous() }}" class="btn btn-light">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
+    @livewireScripts
+    @stack('scripts')
 @endsection

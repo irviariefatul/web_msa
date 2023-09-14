@@ -59,6 +59,41 @@ class User extends Authenticatable
         return $this->hasMany(PerhitunganGaji::class);
     }
 
+    public function serviceFees()
+    {
+        return $this->hasMany(ServiceFee::class);
+    }
+
+    public function investFees()
+    {
+        return $this->hasMany(InvestFee::class);
+    }
+
+    public function operationalFees()
+    {
+        return $this->hasMany(OperationalFee::class);
+    }
+
+    public function pgsf()
+    {
+        return $this->hasMany(PerhitunganGajiServiceFee::class);
+    }
+
+    public function iif()
+    {
+        return $this->hasMany(InvestmentInvestFee::class);
+    }
+
+    public function oof()
+    {
+        return $this->hasMany(OperasionalOperationalFee::class);
+    }
+
+    public function applicationPrices()
+    {
+        return $this->hasMany(ApplicationPrice::class);
+    }
+
     public function isAdmin()
     {
         return $this->role === 'admin'; // Sesuaikan dengan implementasi peran Anda

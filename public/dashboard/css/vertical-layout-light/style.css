@@ -10511,7 +10511,7 @@ pre code {
 .tt-hint {
     display: block;
     width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
+    height: calc(1.5em + 0.75rem + 14px);
     padding: 0.875rem 1.375rem;
     font-size: 0.875rem;
     font-weight: 400;
@@ -11747,13 +11747,13 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary {
     color: #fff;
-    background-color:#fa3541;
+    background-color: #fa3541;
     border-color: #fa3541;
 }
 
 .btn-outline-primary:hover {
-    color:#fa3541;
-    background-color: #fff ;
+    color: #fa3541;
+    background-color: #fff;
     border-color: #fa3541;
 }
 
@@ -27428,3 +27428,6 @@ body.avgrund-active {
 }
 
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
+.baris-baru {
+    margin-bottom: 20px;
+}

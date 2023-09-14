@@ -21,6 +21,8 @@ class InputAllowanceEdit extends Component
     {
         // Metode untuk menambah input field allowances
         $this->inputs[] = ['id' => null];
+        $this->dispatchBrowserEvent('reApplySelect2');
+
     }
 
     public function removeInput($index)
@@ -28,6 +30,7 @@ class InputAllowanceEdit extends Component
         // Metode untuk menghapus input field allowances
         unset($this->inputs[$index]);
         $this->inputs = array_values($this->inputs);
+        $this->dispatchBrowserEvent('reApplySelect2');
     }
 
     public function render()
