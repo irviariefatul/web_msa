@@ -93,13 +93,13 @@
                                             data: {
                                                 labels: labels,
                                                 datasets: [{
-                                                    label: 'Total Harga Aplikasi',
+                                                    label: 'Total Application Price',
                                                     data: totalHarga,
                                                     backgroundColor: 'rgba(0, 0, 128, 0.2)',
                                                     borderColor: 'rgba(0, 0, 128, 1)',
                                                     borderWidth: 1,
                                                 }, {
-                                                    label: 'Jumlah Keuntungan',
+                                                    label: 'Total Profit',
                                                     data: jumlahKeuntungan,
                                                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                                     borderColor: 'rgba(255, 99, 132, 1)',
@@ -189,13 +189,13 @@
                                         data: {
                                             labels: labels,
                                             datasets: [{
-                                                label: 'Total Harga Aplikasi',
+                                                label: 'Total Application Price',
                                                 data: totalHarga,
                                                 backgroundColor: 'rgba(0, 0, 128, 0.2)',
                                                 borderColor: 'rgba(0, 0, 128, 1)',
                                                 borderWidth: 1,
                                             }, {
-                                                label: 'Jumlah Keuntungan',
+                                                label: 'Total Profit',
                                                 data: jumlahKeuntungan,
                                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                                 borderColor: 'rgba(255, 99, 132, 1)',

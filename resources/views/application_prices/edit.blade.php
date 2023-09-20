@@ -19,8 +19,8 @@
                             <label for="serviceFee">Human Resource Cost<span class="text-danger">*</span></label>
                             <select class="form-control select2" name="ServiceFee" required="required" id="ServiceFee">
                                 <option value="">Select Options</option>
-                                @if (auth()->user()->can('manage-admins') || $sf->user_id === auth()->user()->id)
-                                    @foreach ($serviceFees as $sf)
+                                @foreach ($serviceFees as $sf)
+                                    @if (auth()->user()->can('manage-admins') || $sf->user_id === auth()->user()->id)
                                         @php $perhitunganGajiShown = false; @endphp
                                         @foreach ($sf->perhitunganGajis as $perhitunganGaji)
                                             @if (!$perhitunganGajiShown && $perhitunganGaji->pivot->service_fee_id === $sf->id)
@@ -32,8 +32,8 @@
                                                 @php $perhitunganGajiShown = true; @endphp
                                             @endif
                                         @endforeach
-                                    @endforeach
-                                @endif
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">

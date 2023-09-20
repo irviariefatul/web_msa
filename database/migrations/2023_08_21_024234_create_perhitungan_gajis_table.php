@@ -17,8 +17,6 @@ class CreatePerhitunganGajisTable extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger("allowance_id");
-            $table->foreign('allowance_id')->references('id')->on('allowances')->onDelete('cascade');
             $table->unsignedBigInteger("qualification_id");
             $table->foreign('qualification_id')->references('id')->on('qualifications')->onDelete('cascade');
             $table->decimal('total_allowance', 10, 2);

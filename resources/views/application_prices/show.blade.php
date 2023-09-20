@@ -229,7 +229,7 @@
                                             <th>Fee Management (%)</th>
                                             <th>Fee Management (Rp)</th>
                                             <th>Management Fee In 1 Year</th>
-                                            <th>Total App Price per user</th>Management Fee In 1 Year
+                                            <th>Total App Price per user</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -250,6 +250,16 @@
                             </td>
                         </tr>
                     </table>
+                    <tr>
+                        <td>
+                            Notes: The price of this application is a fixed monthly price where users only get the
+                            features
+                            that are in the
+                            {{ $applicationPrices->serviceFee->perhitunganGajis->first()->qualifications->layanan }}
+                            application without any additional features for the next
+                            {{ number_format($applicationPrices->estimasi_bulan / 12, 0, ',', '.') }} years.
+                        </td>
+                    </tr>
                 </div>
                 <a class="nav-link" href="http://127.0.0.1:8000/application_prices" align="right">
                     <button type="button" class="btn btn-primary mr-2">Back</button>
